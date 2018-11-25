@@ -142,7 +142,13 @@ void Graph::shortestPath(int src, bool directed)
 	cout << "----------------------------------------\n";
 	for (int i = 0; i < vertices; i++)
 	{
-		cout << "   " << dist[i] << "\t\t\t";
+		if (dist[i] == INT_MAX)
+		{
+			cout << "   " << static_cast<unsigned char>(236) << "\t\t\tUnreachable" << endl;
+			continue;
+		}
+		else
+			cout << "   " << dist[i] << "\t\t\t";
 
 		if (i == src)
 			cout << (char)(src + 'A') << " - ";
@@ -262,14 +268,6 @@ int main()
 
 	if (!src)		//If the source vertex info is unavailable, it reaches here
 	{
-		//If the input is a Directed Graph, ask user to input source vertex and try again, otherwise if we proceed
-		//it may causes exception, becoz from a particular node we may not reach all nodes 
-		if (directed == 'D')
-		{
-			cout << "Choose the source node & run again!!!" << endl;
-			return 0;
-		}
-
 		//If source vertes is not mentioned, choose it randomly from the given vertices
 		cout << "Source node isn't mentioned!!! Choosing source node randomly ";
 		srcNode = rand() % vertices;
